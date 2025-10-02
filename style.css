@@ -254,17 +254,17 @@ body {
   caret-color: transparent; /* sembunyiin caret asli */
 }
 
-.input-with-icon::after {
+/* .input-with-icon::after {
   content: "";
   position: absolute;
-  right: 89%; /* posisi sesuai kebutuhan */
+  right: 89%;
   top: 50%;
   transform: translateY(-50%);
   width: 2px;
   height: 1.2em;
   background: #ff004f;
   animation: blink 1s step-end infinite;
-}
+} */
 
 @keyframes blink {
   50% { opacity: 0; }
