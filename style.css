@@ -127,6 +127,7 @@ body {
 /* Modal */
 .custom-modal {
   position: fixed;
+  border-radius: 16px 16px 0px 0px;
   bottom: -100%;
   left: 0;
   width: 100%;
@@ -296,7 +297,6 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-top: -15%;
 }
 
 .num-keyboard button {
@@ -347,6 +347,7 @@ body {
 .modal-buttons button:active {
   transform: scale(0.95);
 }
+
 
 
 
