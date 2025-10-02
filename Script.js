@@ -40,12 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let coins = Number(customInput.value);
     if(isNaN(coins) || coins <= 0){
       customPriceText.textContent = "$0.00";
-      customPayBtn.disabled = true;
-      customPayBtn.classList.add("disabled");
+      if(customPayBtn){
+        customPayBtn.disabled = true;
+        customPayBtn.classList.add("disabled");
+      }
     } else {
       customPriceText.textContent = `$${coinToUSD(coins)}`;
-      customPayBtn.disabled = false;
-      customPayBtn.classList.remove("disabled");
+      if(customPayBtn){
+        customPayBtn.disabled = false;
+        customPayBtn.classList.remove("disabled");
+      }
     }
   }
 
@@ -187,5 +191,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedCoins = localStorage.getItem("customCoins");
     if(savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
     if(savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
+  }
+
+  // ===== Disable mobile keyboard =====
+  if(customInput){
+    customInput.setAttribute("readonly", true); // mencegah keyboard HP muncul
+    customInput.style.fontWeight = "bold"; // teks input bold
   }
 });

@@ -216,6 +216,12 @@ body {
   box-sizing: border-box; /* pastikan padding masuk hitungan width */
 }
 
+.input-with-icon input {
+  font-weight: bold;      /* teks yang diketik jadi bold */
+  font-size: 16px;        /* bisa disesuaikan */
+  color: #000;
+}
+
 .input-with-icon input::placeholder {
   font-size: 18px;
   font-weight: bold; /* bikin placeholder bold */
