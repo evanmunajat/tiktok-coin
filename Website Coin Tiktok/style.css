@@ -1,0 +1,345 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+body {
+  background: #ededed;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 15px 120px; /* bottom padding biar payment card tidak nutup konten */
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Profile Card */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  padding: 12px 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.profile img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-form {
+  flex-grow: 1;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.profile-form input:focus {
+  border-color: #ff4b5c;
+}
+
+/* Package Card */
+.card-package {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+/* Note */
+.note h6 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.note p {
+  color: #ff0050;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+/* Coin List Card */
+.coin-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.coin-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.coint-page {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.coint-page p {
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.coin-option:hover {
+  border-color: #ff4b5c;
+}
+
+.coin-option.active {
+  border: 2px solid #ff4b5c;
+  background: #fff5f5;
+}
+
+/* Reward List Card */
+.reward-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.reward-item, .reward-item-double {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reward-item-double {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reward-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reward-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.reward-title {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+}
+
+.reward-sub {
+  font-size: 12px;
+  color: #bbb;
+  margin: 0;
+}
+
+.reward-main {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #000;
+}
+
+.reward-icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+}
+
+.btn-small {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.arrow {
+  font-size: 18px;
+  color: #999;
+}
+
+.logo-tiktok {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Payment Card tetap fixed di bawah */
+.payment-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 12px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  z-index: 999;
+}
+
+.payment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-info img {
+  width: 40px;
+}
+
+.more {
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+}
+
+.terms {
+  font-size: 12px;
+  color: #666;
+  margin: 8px 0;
+}
+
+.btn-pay {
+  width: 100%;
+  background: #ff0050;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-pay .icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Loader container tetap di tengah */
+.loader-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 1000;
+  background: transparent;
+}
+
+/* Loader Box */
+.loader-box {
+  background: rgba(28, 28, 30, 0.85); /* warna gelap pudar */
+  padding: 24px 40px; /* tinggi & horizontal lebih lega */
+  border-radius: 12px; 
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px; /* lebar lebih panjang */
+  max-width: 260px; /* optional, biar gak terlalu lebar */
+}
+
+
+
+/* Loader Dots container */
+.loader-dots {
+  position: relative;
+  width: 36px; /* lebar container untuk overlap */
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+/* Dots */
+.loader-dots span {
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  animation: slideDot 0.6s infinite alternate;
+}
+
+/* Dot warna */
+.loader-dots .dot-white {
+  background: #ffffff;
+  left: 0;
+}
+
+.loader-dots .dot-red {
+  background: #ff004f;
+  left: 12px;
+  animation-delay: 0.3s;
+}
+
+/* Animasi horizontal perlewatan, overlap seperti logo Mastercard */
+@keyframes slideDot {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+/* Text di bawah loader */
+.loader-box p {
+  font-size: 13px;
+  color: #f5f5f5;
+  line-height: 1.5;
+  font-family: 'Montserrat', sans-serif;
+  margin: 8px 0 0 0;
+}
