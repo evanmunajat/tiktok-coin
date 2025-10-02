@@ -57,7 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-// =========== helper 2 ============
+
+// =========== Close helper 2 ============
 
  function coinToUSD(coins){
   return (coins / 300).toFixed(2);
@@ -79,14 +80,14 @@ function updatePrice(){
 
   // kalau isinya angka valid
   if(isNaN(coins) || coins <= 0){
-    customPriceButton.textContent = "";
+    customCoinPriceButton.textContent = "";
     minimumText.style.display = "block";
     if(customPayBtn){
       customPayBtn.disabled = true;
       customPayBtn.classList.add("disabled");
     }
   } else {
-    customPriceButton.textContent = `$${coinToUSD(coins)}`;
+    customCoinPriceButton.textContent = `$${coinToUSD(coins)}`;
     minimumText.style.display = "none";
     if(customPayBtn){
       customPayBtn.disabled = false;
@@ -97,7 +98,7 @@ function updatePrice(){
 
 // pas pertama kali load langsung reset ke kosong
 document.addEventListener("DOMContentLoaded", () => {
-  if(customPriceButton) customPriceButton.textContent = "";
+  if(customCoinPriceButton) customCoinPriceButton.textContent = "";
   if(customInput) customInput.value = "";
   if(minimumText) minimumText.style.display = "block";
 });
