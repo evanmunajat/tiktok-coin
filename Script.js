@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ===== Elements =====
   const loader = document.getElementById("loader");
   const card = document.querySelector(".card-topup");
   const payBtn = document.getElementById("payBtn");
@@ -8,20 +9,64 @@ document.addEventListener("DOMContentLoaded", () => {
   const coinOptions = document.querySelectorAll('.coin-option');
   const paymentOptions = document.querySelectorAll('.payment-option');
 
-  if (loader) loader.style.display = "none";
-  if (card) card.style.display = "block";
+  // Custom Coin Elements
+  const customOption = document.getElementById("customCoinOption");
+  const customModal = document.getElementById("customCoinModal");
+  const customInput = document.getElementById("customCoinInput");
+  const customPriceText = document.getElementById("customCoinPrice");
+  const customConfirm = document.getElementById("customCoinConfirm");
+  const customClose = document.getElementById("customCoinClose");
+  const customPayBtn = document.getElementById("CustomPay");
 
+  // Numeric Keyboard
+  const keyboardButtons = document.querySelectorAll(".num-keyboard button");
+
+  // Payment Success Elements
+  const thanksText = document.getElementById("thanks-text");
+  const coinAmount = document.getElementById("coin-amount");
+  const backBtn = document.querySelector(".back-button");
+
+  // ===== Init =====
+  if(loader) loader.style.display = "none";
+  if(card) card.style.display = "block";
   let selectedMethod = "Credit Card";
 
+  // ===== Helper =====
+  function coinToUSD(coins){
+    return (coins / 300).toFixed(2);
+  }
+
+  function updatePrice(){
+    let coins = Number(customInput.value);
+    if(isNaN(coins) || coins <= 0){
+      customPriceText.textContent = "$0.00";
+      customPayBtn.disabled = true;
+      customPayBtn.classList.add("disabled");
+    } else {
+      customPriceText.textContent = `$${coinToUSD(coins)}`;
+      customPayBtn.disabled = false;
+      customPayBtn.classList.remove("disabled");
+    }
+  }
+
+  // ===== Coin Selection =====
   coinOptions.forEach(option => {
     option.addEventListener('click', () => {
       coinOptions.forEach(opt => opt.classList.remove('active'));
       option.classList.add('active');
-      const price = option.getAttribute('data-price');
-      if (payBtn) payBtn.textContent = `Pay $${Number(price).toFixed(2)}`;
+
+      if(option.id === "customCoinOption"){
+        customModal.classList.add("show");
+        customInput.focus();
+        updatePrice();
+      } else {
+        const price = option.getAttribute('data-price');
+        if(payBtn) payBtn.textContent = `Pay $${Number(price).toFixed(2)}`;
+      }
     });
   });
 
+  // ===== Payment Method Selection =====
   paymentOptions.forEach(option => {
     option.addEventListener('click', () => {
       paymentOptions.forEach(opt => opt.classList.remove('active'));
@@ -30,10 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  if (profileInput && profilePreview) {
-    profileInput.addEventListener("change", (e) => {
+  // ===== Profile Preview =====
+  if(profileInput && profilePreview){
+    profileInput.addEventListener("change", e => {
       const file = e.target.files[0];
-      if (file) {
+      if(file){
         const reader = new FileReader();
         reader.onload = () => profilePreview.src = reader.result;
         reader.readAsDataURL(file);
@@ -43,25 +89,85 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (payBtn) {
-    payBtn.addEventListener("click", () => {
+  // ===== Custom Modal =====
+  if(customClose) customClose.addEventListener("click", () => customModal.classList.remove("show"));
+  if(customInput) customInput.addEventListener("input", updatePrice);
+
+  if(customConfirm){
+    customConfirm.addEventListener("click", () => {
+      const coins = Number(customInput.value);
+      if(!isNaN(coins) && coins > 0){
+        localStorage.setItem("customCoins", coins);
+        customModal.classList.remove("show");
+        coinOptions.forEach(opt => opt.classList.remove('active'));
+        customOption.classList.add('active');
+        updatePrice();
+      }
+    });
+  }
+
+  // ===== Numeric Keyboard =====
+  keyboardButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.getAttribute("data-key");
+      if(!customInput) return;
+
+      if(key === "Backspace"){
+        customInput.value = customInput.value.slice(0, -1);
+      } else if(key === "000"){
+        customInput.value += "000";
+      } else {
+        customInput.value += key;
+      }
+
+      updatePrice();
+    });
+  });
+
+  // ===== Custom Pay Button =====
+  if(customPayBtn){
+    customPayBtn.disabled = true;
+    customPayBtn.classList.add("disabled");
+
+    customPayBtn.addEventListener("click", () => {
+      const coins = Number(customInput.value);
+      if(!coins || coins <= 0){
+        customInput.focus();
+        return;
+      }
+
       const username = userInput.value.trim();
-      if (!username) {
+      if(!username){
         userInput.focus();
         userInput.style.border = "2px solid red";
         setTimeout(() => userInput.style.border = "", 1500);
         return;
       }
 
-      // Simpan ke localStorage
+      localStorage.setItem("customCoins", coins);
       localStorage.setItem("tiktokUsername", username);
+      window.location.href = "PaymentSucces.html";
+    });
+  }
+
+  // ===== Pay Button =====
+  if(payBtn){
+    payBtn.addEventListener("click", () => {
+      const username = userInput.value.trim();
+      if(!username){
+        userInput.focus();
+        userInput.style.border = "2px solid red";
+        setTimeout(() => userInput.style.border = "", 1500);
+        return;
+      }
+      localStorage.setItem("tiktokUsername", username);
+
       const activeCoin = document.querySelector('.coin-option.active');
-      if (activeCoin) {
+      if(activeCoin && activeCoin.id !== "customCoinOption"){
         localStorage.setItem("customCoins", activeCoin.getAttribute('data-price'));
       }
 
-      // Loader
-      if (!loader || !card) return;
+      if(!loader || !card) return;
       loader.style.display = "flex";
       card.style.display = "none";
       payBtn.disabled = true;
@@ -74,20 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const thanksText = document.getElementById("thanks-text");
-  const coinAmount = document.getElementById("coin-amount");
-  const backBtn = document.querySelector(".back-button");
-
-  if (backBtn) {
-    backBtn.addEventListener("click", () => {
-      window.location.href = "Index.html";
-    });
-  }
-
-  if (thanksText && coinAmount) {
+  // ===== Payment Success Page =====
+  if(backBtn) backBtn.addEventListener("click", () => window.location.href = "index.html");
+  if(thanksText && coinAmount){
     const savedUsername = localStorage.getItem("tiktokUsername");
     const savedCoins = localStorage.getItem("customCoins");
-    if (savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
-    if (savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
+    if(savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
+    if(savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
   }
 });

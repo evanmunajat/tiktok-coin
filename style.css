@@ -124,6 +124,225 @@ body {
   background: #fff5f5;
 }
 
+/* Modal */
+.custom-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: #fff;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+  color: #000;
+  transition: bottom 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
+}
+
+.custom-modal.show {
+  bottom: 0;
+}
+
+.custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 52px;
+  padding: 0 12px;
+  background-color: #fff;
+  box-sizing: border-box;
+  position: relative;
+  border-bottom: 1px solid rgba(22, 24, 35, 0.2);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  cursor: pointer;
+}
+
+.back-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+}
+
+.help-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.help-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0; /* abu muda */
+  border: 1px solid #ff004f; /* pink TikTok */
+  border-radius: 8px;
+  padding: 20px 10px;
+  gap: 8px;
+  width: 100%;       /* full width parent */
+  max-width: 100%;   /* hapus batas max-width */
+  box-sizing: border-box; /* pastikan padding masuk hitungan width */
+}
+
+.input-with-icon input::placeholder {
+  font-size: 18px;
+  font-weight: bold; /* bikin placeholder bold */
+  color: #888; /* optional: ubah warna placeholder */
+}
+
+.input-with-icon .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-with-icon input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  flex: 1;
+  color: #111;
+}
+
+
+.page-text-custom {
+  display: flex;
+  justify-content: space-between; /* membuat dua elemen menempel di kiri dan kanan */
+  align-items: center; /* vertikal center */
+  gap: 1rem; /* optional, beri jarak minimal */
+}
+
+
+.page-text-custom p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.button-total-custom {
+  flex-direction: column; /* teks di atas tombol */
+  gap: 0.3rem; /* jarak lebih rapet */
+  padding: 0.5rem 0; /* jarak atas bawah container */
+}
+
+.page-text-custom {
+  gap: 0.5rem; /* jarak antar teks Total dan harga */
+}
+
+.custom-hr {
+  width: 100%;
+  height: 1px;           /* ketebalan garis */
+  background-color: #ccc; /* warna garis */
+  margin: 16px 0;        /* jarak atas bawah */
+}
+
+
+/* Total */
+.page-text-custom .total {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.page-text-custom .price {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Keyboard */
+.num-keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.num-keyboard button {
+  background: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  padding: 15px 0;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.num-keyboard button:active {
+  transform: scale(0.95);
+  background: #d0d0d0;
+}
+
+.num-keyboard button[data-key="Backspace"] {
+  background: #e0e0e0;
+  color: #a3a2a2;
+}
+
+.num-keyboard button[data-key="000"] {
+  background: #e0e0e0;
+}
+
+/* Modal buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.modal-buttons button {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: #ff004f;
+  color: #fff;
+  transition: all 0.15s ease;
+}
+
+.modal-buttons button:active {
+  transform: scale(0.95);
+}
+
+
+
+.modal-actions button:last-child { margin-right: 0; }
+.modal-actions #customCoinConfirm { background: #ff004f; color: #fff; }
+.modal-actions #customCoinClose { background: #ccc; color: #000; }
+
+
 /* Reward List Card */
 .reward-list {
   display: flex;

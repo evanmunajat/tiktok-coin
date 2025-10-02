@@ -175,9 +175,90 @@
             <small>$166,67 </small>
           </div>
 
-          <div class="coin-option" data-price="2320000">
-            <div class="coint-page"><p class="text-coint">Special</p></div>
-          </div>
+          <!-- Coin Option -->
+<div class="coin-option" id="customCoinOption" data-price="">
+  <div class="coint-page"><p class="text-coint">Custom</p></div>
+</div>
+
+<!-- Bottom Sheet Modal -->
+<div id="customCoinModal" class="custom-modal">
+  <header class="custom-header">
+  <button class="back-btn">
+    <!-- Arrow kiri -->
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 7 7 24l17 17" stroke="#000" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <div class="header-title">Khusus</div>
+
+  <button data-test-tag="tux-nav-bar-button-0" class="tux-nav-bar-icon-action h-40 w-40 p-0 text-color-TextPrimary flex items-center justify-center" style="border: none; background: none;">
+    <svg fill="currentColor" font-size="22px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" class="flip-rtl ">
+      <path d="M21.36 28.05V22.8l1.79-.1c2.33-.1 3.87-1.36 3.87-3.31s-1.31-3-3.33-3c-1.95 0-3.53.95-3.88 3.1l-4.31-.7c.54-3.98 3.78-6.28 8.54-6.28 4.5 0 7.66 2.66 7.66 6.75 0 3.3-2.18 5.66-5.58 6.3v2.5h-4.76ZM20.62 32.72a2.99 2.99 0 0 1 3.07-3.04 2.96 2.96 0 0 1 3.04 3.04c0 1.7-1.28 3.01-3.04 3.01a2.98 2.98 0 0 1-3.07-3Z">
+      </path><path d="M2 24a22 22 0 1 1 44 0 22 22 0 0 1-44 0Zm22 18a18 18 0 1 0 0-36 18 18 0 0 0 0 36Z"></path>
+    </svg>
+  </button>
+</header>
+
+  <div class="input-with-icon mt-4">
+  <span class="icon">
+    <svg font-size="18px" viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+      <g clip-path="url(#clip0)">
+        <path d="M48 24a24 24 0 1 1-48 0 24 24 0 0 1 48 0Z" fill="#FFB84D"></path>
+        <path d="M47 24a23 23 0 1 1-46 0 23 23 0 0 1 46 0Z" fill="#FFDE55"></path>
+        <path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A300"></path>
+        <path d="M42 24a18 18 0 1 1-36 0 18 18 0 0 1 36 0Z" fill="#F7A80F"></path>
+        <path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#E88B00"></path>
+        <path d="M41.94 25.5a18 18 0 1 0-35.88 0 18 18 0 0 1 35.88 0Z" fill="#F09207"></path>
+        <path d="M34.74 17.77v5.86c-2.06 0-4.05-.44-5.81-1.55v7.2a7.79 7.79 0 0 1-7.84 7.75 7.79 7.79 0 0 1-7.8-8.35 7.79 7.79 0 0 1 9.19-8.24v6c-.47-.13-.9-.26-1.39-.26a3.14 3.14 0 0 0-3.09 2.5 3.14 3.14 0 0 0 3.1 2.5c1.74 0 3.14-1.4 3.14-3.11V12.03h4.69a5.6 5.6 0 0 0 5.81 5.74Z" fill="#F09207"></path>
+        <path d="M34.34 18.18a5.78 5.78 0 0 1-5.82-5.74h-3.87v15.63c0 1.94-1.6 3.5-3.56 3.5a3.53 3.53 0 0 1-3.55-3.5 3.53 3.53 0 0 1 4.52-3.38v-3.9a7.38 7.38 0 0 0-8.4 7.28 7.38 7.38 0 0 0 7.43 7.34c4.1 0 7.43-3.29 7.43-7.34v-7.98a9.73 9.73 0 0 0 5.82 1.92v-3.83Z" fill="#fff"></path>
+      </g>
+      <defs>
+        <clipPath id="clip0"><path fill="#fff" d="M0 0h48v48H0z"></path></clipPath>
+      </defs>
+    </svg>
+  </span>
+  <input type="text" id="customCoinInput" placeholder="30 - 2,500,000">
+</div>
+
+  
+  <!-- Custom Numeric Keyboard -->
+  <div class="num-keyboard mt-4">
+    <button data-key="1">1</button>
+    <button data-key="2">2</button>
+    <button data-key="3">3</button>
+    <button data-key="Backspace">
+      <svg fill="currentColor" class="flip-rtl text-color-TextQuaternary" font-size="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+        <path d="m16.54 8.5-12.46 11a6 6 0 0 0 0 9l12.46 11a6 6 0 0 0 3.97 1.5H40a6 6 0 0 0 6-6V13a6 6 0 0 0-6-6H20.51a6 6 0 0 0-3.97 1.5ZM26.17 24l-4.38-4.38a1 1 0 0 1 0-1.41l1.42-1.42a1 1 0 0 1 1.41 0L29 21.17l4.38-4.38a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1 0 1.41L31.83 24l4.38 4.38a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 0 1-1.41 0L29 26.83l-4.38 4.38a1 1 0 0 1-1.41 0l-1.42-1.42a1 1 0 0 1 0-1.41L26.17 24Z">
+      </path>
+    </svg>
+    </button>
+    <button data-key="4">4</button>
+    <button data-key="5">5</button>
+    <button data-key="6">6</button>
+    <button data-key="000">000</button>
+    <button data-key="7">7</button>
+    <button data-key="8">8</button>
+    <button data-key="9">9</button>
+    <button data-key="0">0</button>
+  </div>
+  <div class="custom-hr"></div>
+  <div class="button-total-custom">
+    <div class="page-text-custom">
+      <p class="total">Total</p>
+      <p class="price" id="customCoinPrice">$0.00</p>
+    </div>
+   <button class="btn-pay mt-3" id="CustomPay" disabled>
+  <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+    <path d="M28.22 13.7a4.83 4.83 0 0 0 4.86 4.8l-.04 3.45c-1.77 0-3.4-.53-4.75-1.43l-.09 6.99a6.64 6.64 0 0 1-6.69 6.3 6.44 6.44 0 0 1-6.53-6.45 6.63 6.63 0 0 1 7.61-6.4l-.04 3.7a2.97 2.97 0 0 0-3.88 2.7 2.85 2.85 0 0 0 2.89 2.85 2.93 2.93 0 0 0 2.96-2.85l.16-13.66h3.54Z"></path>
+    <path d="M5 23.15V10.5c0-1.2 1.06-2.17 2.26-2.28 3.05-.25 8.87-1.52 15.34-6.99.8-.67 2-.67 2.8 0 6.46 5.46 12.28 6.74 15.34 7 1.2.1 2.26 1.07 2.26 2.27v12.65c0 14.13-14.77 21.8-18.27 23.43-.47.22-1 .22-1.47 0C19.76 44.96 5 37.28 5 23.15Zm4-11.1v11.1c0 5.57 2.88 10.04 6.56 13.5 3.1 2.91 6.5 4.86 8.44 5.85a37.07 37.07 0 0 0 8.43-5.85C36.11 33.2 39 28.72 39 23.15V12.04c-3.65-.53-9.1-2.16-15-6.8-5.91 4.64-11.35 6.27-15 6.8Z"></path>
+  </svg>
+  Refillable
+</button>
+  </div>
+</div>
+
+
         </div>
       </div>
 
