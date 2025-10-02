@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const customModal = document.getElementById("customCoinModal");
   const customInput = document.getElementById("customCoinInput");
   const customPriceText = document.getElementById("customCoinPrice");
+  const customPriceButton = document.getElementById("customCoinPriceButton");
   const customConfirm = document.getElementById("customCoinConfirm");
   const customClose = document.getElementById("customCoinClose");
   const customPayBtn = document.getElementById("CustomPay");
@@ -31,6 +32,31 @@ document.addEventListener("DOMContentLoaded", () => {
   if(loader) loader.style.display = "none";
   if(card) card.style.display = "block";
   let selectedMethod = "Credit Card";
+
+  // ===== Helper =====
+  function coinToUSD(coins){
+    return (coins / 300).toFixed(2);
+  }
+
+  function updatePrice(){
+    let coins = Number(customInput.value);
+
+    if(isNaN(coins) || coins <= 0){
+      customPriceButton.textContent = ""; // hilangkan harga sebelum input
+      minimumText.style.display = "block"; // tampilkan minimum
+      if(customPayBtn){
+        customPayBtn.disabled = true;
+        customPayBtn.classList.add("disabled");
+      }
+    } else {
+      customPriceButton.textContent = `$${coinToUSD(coins)}`;
+      minimumText.style.display = "none"; // sembunyikan minimum
+      if(customPayBtn){
+        customPayBtn.disabled = false;
+        customPayBtn.classList.remove("disabled");
+      }
+    }
+  }
 
   // ===== Helper =====
   function coinToUSD(coins){

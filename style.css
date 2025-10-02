@@ -137,7 +137,6 @@ body {
   color: #000;
   transition: bottom 0.3s ease;
   padding: 20px;
-  display: flex;
   flex-direction: column;
   z-index: 2000;
 }
