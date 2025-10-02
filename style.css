@@ -257,7 +257,7 @@ body {
 .input-with-icon::after {
   content: "";
   position: absolute;
-  right: 90; /* posisi sesuai kebutuhan */
+  right: 99%; /* posisi sesuai kebutuhan */
   top: 50%;
   transform: translateY(-50%);
   width: 2px;
