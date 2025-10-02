@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const customConfirm = document.getElementById("customCoinConfirm");
   const customClose = document.getElementById("customCoinClose");
   const customPayBtn = document.getElementById("CustomPay");
+  const minimumText = document.getElementById("mimum"); // elemen minimum
 
   // Numeric Keyboard
   const keyboardButtons = document.querySelectorAll(".num-keyboard button");
@@ -38,14 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updatePrice(){
     let coins = Number(customInput.value);
+
     if(isNaN(coins) || coins <= 0){
-      customPriceText.textContent = "$0.00";
+      customPriceText.textContent = ""; // hilangkan harga sebelum input
+      minimumText.style.display = "block"; // tampilkan minimum
       if(customPayBtn){
         customPayBtn.disabled = true;
         customPayBtn.classList.add("disabled");
       }
     } else {
       customPriceText.textContent = `$${coinToUSD(coins)}`;
+      minimumText.style.display = "none"; // sembunyikan minimum
       if(customPayBtn){
         customPayBtn.disabled = false;
         customPayBtn.classList.remove("disabled");
@@ -193,9 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if(savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
   }
 
-  // ===== Disable mobile keyboard =====
+  // ===== Disable mobile keyboard dan bold input =====
   if(customInput){
-    customInput.setAttribute("readonly", true); // mencegah keyboard HP muncul
-    customInput.style.fontWeight = "bold"; // teks input bold
+    customInput.setAttribute("readonly", true);
+    customInput.style.fontWeight = "bold";
+    customPriceText.textContent = ""; // hilangkan harga awal
   }
 });
