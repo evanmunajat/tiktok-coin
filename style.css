@@ -246,30 +246,6 @@ body {
   opacity: 1;         /* hilangin efek transparan bawaan */
 }
 
-.input-with-icon {
-  position: relative;
-}
-
-.input-with-icon input {
-  caret-color: transparent; /* sembunyiin caret asli */
-}
-
-/* .input-with-icon::after {
-  content: "";
-  position: absolute;
-  right: 89%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2px;
-  height: 1.2em;
-  background: #ff004f;
-  animation: blink 1s step-end infinite;
-} */
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
 
 .input-with-icon .icon {
   display: flex;
