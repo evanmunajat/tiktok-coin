@@ -35,6 +35,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Helper =====
   function coinToUSD(coins){
+    return (coins / 300).toFixed(2);
+  }
+
+  function updatePrice(){
+    let coins = Number(customInput.value);
+
+    if(isNaN(coins) || coins <= 0){
+      customPriceText.textContent = ""; // hilangkan harga sebelum input
+      minimumText.style.display = "block"; // tampilkan minimum
+      if(customPayBtn){
+        customPayBtn.disabled = true;
+        customPayBtn.classList.add("disabled");
+      }
+    } else {
+      customPriceText.textContent = `$${coinToUSD(coins)}`;
+      minimumText.style.display = "none"; // sembunyikan minimum
+      if(customPayBtn){
+        customPayBtn.disabled = false;
+        customPayBtn.classList.remove("disabled");
+      }
+    }
+  }
+// =========== helper 2 ============
+
+ function coinToUSD(coins){
   return (coins / 300).toFixed(2);
 }
 
@@ -77,31 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if(minimumText) minimumText.style.display = "block";
 });
 
-
-  // ===== Helper =====
-  function coinToUSD(coins){
-    return (coins / 300).toFixed(2);
-  }
-
-  function updatePrice(){
-    let coins = Number(customInput.value);
-
-    if(isNaN(coins) || coins <= 0){
-      customPriceText.textContent = ""; // hilangkan harga sebelum input
-      minimumText.style.display = "block"; // tampilkan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = true;
-        customPayBtn.classList.add("disabled");
-      }
-    } else {
-      customPriceText.textContent = `$${coinToUSD(coins)}`;
-      minimumText.style.display = "none"; // sembunyikan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = false;
-        customPayBtn.classList.remove("disabled");
-      }
-    }
-  }
 
   // ===== Coin Selection =====
   coinOptions.forEach(option => {
