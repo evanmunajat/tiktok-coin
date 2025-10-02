@@ -35,28 +35,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Helper =====
   function coinToUSD(coins){
-    return (coins / 300).toFixed(2);
+  return (coins / 300).toFixed(2);
+}
+
+function updatePrice(){
+  let coins = Number(customInput.value);
+
+  // kalau kosong (""), reset ke kosong jangan jadi 0
+  if(customInput.value.trim() === ""){
+    customPriceButton.textContent = "";   // kosongin harga
+    minimumText.style.display = "block";  // tampilkan minimum
+    if(customPayBtn){
+      customPayBtn.disabled = true;
+      customPayBtn.classList.add("disabled");
+    }
+    return; // stop disini biar ga kebaca jadi 0
   }
 
-  function updatePrice(){
-    let coins = Number(customInput.value);
-
-    if(isNaN(coins) || coins <= 0){
-      customPriceButton.textContent = ""; // hilangkan harga sebelum input
-      minimumText.style.display = "block"; // tampilkan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = true;
-        customPayBtn.classList.add("disabled");
-      }
-    } else {
-      customPriceButton.textContent = `$${coinToUSD(coins)}`;
-      minimumText.style.display = "none"; // sembunyikan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = false;
-        customPayBtn.classList.remove("disabled");
-      }
+  // kalau isinya angka valid
+  if(isNaN(coins) || coins <= 0){
+    customPriceButton.textContent = "";
+    minimumText.style.display = "block";
+    if(customPayBtn){
+      customPayBtn.disabled = true;
+      customPayBtn.classList.add("disabled");
+    }
+  } else {
+    customPriceButton.textContent = `$${coinToUSD(coins)}`;
+    minimumText.style.display = "none";
+    if(customPayBtn){
+      customPayBtn.disabled = false;
+      customPayBtn.classList.remove("disabled");
     }
   }
+}
+
+// pas pertama kali load langsung reset ke kosong
+document.addEventListener("DOMContentLoaded", () => {
+  if(customPriceButton) customPriceButton.textContent = "";
+  if(customInput) customInput.value = "";
+  if(minimumText) minimumText.style.display = "block";
+});
+
 
   // ===== Helper =====
   function coinToUSD(coins){
