@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const customOption = document.getElementById("customCoinOption");
   const customModal = document.getElementById("customCoinModal");
   const customInput = document.getElementById("customCoinInput");
-  const customPriceText = document.getElementById("customCoinPrice");
-  const customPriceButton = document.getElementById("customCoinPriceButton");
+  const customPriceText = document.getElementById("customCoinPrice");        // harga kecil (deket input)
+  const customPriceButton = document.getElementById("customCoinPriceButton"); // harga besar (atas tombol Pay)
   const customConfirm = document.getElementById("customCoinConfirm");
   const customClose = document.getElementById("customCoinClose");
   const customPayBtn = document.getElementById("CustomPay");
@@ -28,89 +28,59 @@ document.addEventListener("DOMContentLoaded", () => {
   const coinAmount = document.getElementById("coin-amount");
   const backBtn = document.querySelector(".back-button");
 
+  // Modal Back Button
+  const modalBackBtn = document.querySelector("#customCoinModal .back-btn");
+
   // ===== Init =====
-  if(loader) loader.style.display = "none";
-  if(card) card.style.display = "block";
+  if (loader) loader.style.display = "none";
+  if (card) card.style.display = "block";
   let selectedMethod = "Credit Card";
 
+  // Harga awal ilangin dulu
+  if (customPriceText) customPriceText.style.display = "none";
+  if (customPriceButton) customPriceButton.style.display = "none";
+
+  // ===== Disable mobile keyboard dan bold input =====
+  if(customInput){
+    customInput.setAttribute("readonly", true);
+    customInput.style.fontWeight = "bold";
+    customPriceText.textContent = ""; // hilangkan harga awal
+  }
+
   // ===== Helper =====
-  function coinToUSD(coins){
+  function coinToUSD(coins) {
     return (coins / 300).toFixed(2);
   }
 
-  function updatePrice(){
+  function updatePrice() {
     let coins = Number(customInput.value);
 
-    if(isNaN(coins) || coins <= 0){
-      customPriceText.textContent = ""; // hilangkan harga sebelum input
-      minimumText.style.display = "block"; // tampilkan minimum
-      if(customPayBtn){
+    if (isNaN(coins) || coins <= 0) {
+      if (customPriceText) {
+        customPriceText.style.display = "none";
+        customPriceText.textContent = "";
+      }
+      if (customPriceButton) {
+        customPriceButton.style.display = "none";
+        customPriceButton.textContent = "";
+      }
+      minimumText.style.display = "block";
+      if (customPayBtn) {
         customPayBtn.disabled = true;
         customPayBtn.classList.add("disabled");
       }
     } else {
-      customPriceText.textContent = `$${coinToUSD(coins)}`;
-      minimumText.style.display = "none"; // sembunyikan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = false;
-        customPayBtn.classList.remove("disabled");
+      const price = `$${coinToUSD(coins)}`;
+      if (customPriceText) {
+        customPriceText.style.display = "block";
+        customPriceText.textContent = price;
       }
-    }
-  }
-// =========== helper 2 ============
-
-function updatePrice(){
-  let coins = Number(customInput.value);
-
-  if(isNaN(coins) || coins <= 0){
-    // Harga kecil (deket input)
-    customPriceText.textContent = "";
-
-    // Harga besar (atas button Pay)
-    customPriceButton.textContent = "";
-
-    minimumText.style.display = "block";
-    if(customPayBtn){
-      customPayBtn.disabled = true;
-      customPayBtn.classList.add("disabled");
-    }
-  } else {
-    const price = `$${coinToUSD(coins)}`;
-
-    // Harga kecil (deket input)
-    customPriceText.textContent = price;
-
-    // Harga besar (atas button Pay)
-    customPriceButton.textContent = price;
-
-    minimumText.style.display = "none";
-    if(customPayBtn){
-      customPayBtn.disabled = false;
-      customPayBtn.classList.remove("disabled");
-    }
-  }
-}
-
-
-  // ===== Helper =====
-  function coinToUSD(coins){
-    return (coins / 300).toFixed(2);
-  }
-
-  function updatePrice(){
-    let coins = Number(customInput.value);
-
-    if(isNaN(coins) || coins <= 0){
-      customPriceText.textContent = ""; // hilangkan harga sebelum input
-      minimumText.style.display = "block"; // tampilkan minimum
-      if(customPayBtn){
-        customPayBtn.disabled = true;
-        customPayBtn.classList.add("disabled");
+      if (customPriceButton) {
+        customPriceButton.style.display = "block";
+        customPriceButton.textContent = price;
       }
-    } else {
-      customPriceText.textContent = `$${coinToUSD(coins)}`;
-      minimumText.style.display = "none"; // sembunyikan minimum
-      if(customPayBtn){
+      minimumText.style.display = "none";
+      if (customPayBtn) {
         customPayBtn.disabled = false;
         customPayBtn.classList.remove("disabled");
       }
@@ -123,13 +93,14 @@ function updatePrice(){
       coinOptions.forEach(opt => opt.classList.remove('active'));
       option.classList.add('active');
 
-      if(option.id === "customCoinOption"){
-        customModal.classList.add("show");
+      if (option.id === "customCoinOption") {
+        customModal.classList.add("show");   // tampil
+        customModal.classList.remove("closing"); // pastiin ga ada closing
         customInput.focus();
         updatePrice();
       } else {
         const price = option.getAttribute('data-price');
-        if(payBtn) payBtn.textContent = `Pay $${Number(price).toFixed(2)}`;
+        if (payBtn) payBtn.textContent = `Pay $${Number(price).toFixed(2)}`;
       }
     });
   });
@@ -144,10 +115,10 @@ function updatePrice(){
   });
 
   // ===== Profile Preview =====
-  if(profileInput && profilePreview){
+  if (profileInput && profilePreview) {
     profileInput.addEventListener("change", e => {
       const file = e.target.files[0];
-      if(file){
+      if (file) {
         const reader = new FileReader();
         reader.onload = () => profilePreview.src = reader.result;
         reader.readAsDataURL(file);
@@ -158,15 +129,38 @@ function updatePrice(){
   }
 
   // ===== Custom Modal =====
-  if(customClose) customClose.addEventListener("click", () => customModal.classList.remove("show"));
-  if(customInput) customInput.addEventListener("input", updatePrice);
+  if (customClose) {
+    customClose.addEventListener("click", () => {
+      customModal.classList.add("closing");
+      setTimeout(() => {
+        customModal.classList.remove("show");
+        customModal.classList.remove("closing");
+      }, 400);
+    });
+  }
 
-  if(customConfirm){
+  if (modalBackBtn) {
+    modalBackBtn.addEventListener("click", () => {
+      customModal.classList.add("closing");
+      setTimeout(() => {
+        customModal.classList.remove("show");
+        customModal.classList.remove("closing");
+      }, 400);
+    });
+  }
+
+  if (customInput) customInput.addEventListener("input", updatePrice);
+
+  if (customConfirm) {
     customConfirm.addEventListener("click", () => {
       const coins = Number(customInput.value);
-      if(!isNaN(coins) && coins > 0){
+      if (!isNaN(coins) && coins > 0) {
         localStorage.setItem("customCoins", coins);
-        customModal.classList.remove("show");
+        customModal.classList.add("closing");
+        setTimeout(() => {
+          customModal.classList.remove("show");
+          customModal.classList.remove("closing");
+        }, 400);
         coinOptions.forEach(opt => opt.classList.remove('active'));
         customOption.classList.add('active');
         updatePrice();
@@ -178,11 +172,11 @@ function updatePrice(){
   keyboardButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const key = btn.getAttribute("data-key");
-      if(!customInput) return;
+      if (!customInput) return;
 
-      if(key === "Backspace"){
+      if (key === "Backspace") {
         customInput.value = customInput.value.slice(0, -1);
-      } else if(key === "000"){
+      } else if (key === "000") {
         customInput.value += "000";
       } else {
         customInput.value += key;
@@ -193,19 +187,19 @@ function updatePrice(){
   });
 
   // ===== Custom Pay Button =====
-  if(customPayBtn){
+  if (customPayBtn) {
     customPayBtn.disabled = true;
     customPayBtn.classList.add("disabled");
 
     customPayBtn.addEventListener("click", () => {
       const coins = Number(customInput.value);
-      if(!coins || coins <= 0){
+      if (!coins || coins <= 0) {
         customInput.focus();
         return;
       }
 
       const username = userInput.value.trim();
-      if(!username){
+      if (!username) {
         userInput.focus();
         userInput.style.border = "2px solid red";
         setTimeout(() => userInput.style.border = "", 1500);
@@ -219,10 +213,10 @@ function updatePrice(){
   }
 
   // ===== Pay Button =====
-  if(payBtn){
+  if (payBtn) {
     payBtn.addEventListener("click", () => {
       const username = userInput.value.trim();
-      if(!username){
+      if (!username) {
         userInput.focus();
         userInput.style.border = "2px solid red";
         setTimeout(() => userInput.style.border = "", 1500);
@@ -231,11 +225,11 @@ function updatePrice(){
       localStorage.setItem("tiktokUsername", username);
 
       const activeCoin = document.querySelector('.coin-option.active');
-      if(activeCoin && activeCoin.id !== "customCoinOption"){
+      if (activeCoin && activeCoin.id !== "customCoinOption") {
         localStorage.setItem("customCoins", activeCoin.getAttribute('data-price'));
       }
 
-      if(!loader || !card) return;
+      if (!loader || !card) return;
       loader.style.display = "flex";
       card.style.display = "none";
       payBtn.disabled = true;
@@ -249,18 +243,11 @@ function updatePrice(){
   }
 
   // ===== Payment Success Page =====
-  if(backBtn) backBtn.addEventListener("click", () => window.location.href = "index.html");
-  if(thanksText && coinAmount){
+  if (backBtn) backBtn.addEventListener("click", () => window.location.href = "index.html");
+  if (thanksText && coinAmount) {
     const savedUsername = localStorage.getItem("tiktokUsername");
     const savedCoins = localStorage.getItem("customCoins");
-    if(savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
-    if(savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
-  }
-
-  // ===== Disable mobile keyboard dan bold input =====
-  if(customInput){
-    customInput.setAttribute("readonly", true);
-    customInput.style.fontWeight = "bold";
-    customPriceText.textContent = ""; // hilangkan harga awal
+    if (savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
+    if (savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
   }
 });

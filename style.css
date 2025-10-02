@@ -127,22 +127,37 @@ body {
 /* Modal */
 .custom-modal {
   position: fixed;
-  border-radius: 16px 16px 0px 0px;
-  bottom: -100%;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 70%;
   background: #fff;
+  border-radius: 16px 16px 0 0;
   box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
   color: #000;
-  transition: bottom 0.3s ease;
   padding: 20px;
   flex-direction: column;
   z-index: 2000;
+
+  /* Animasi default hidden */
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
+/* Saat modal muncul */
 .custom-modal.show {
-  bottom: 0;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Saat modal ditutup */
+.custom-modal.closing {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .custom-header {
@@ -176,6 +191,7 @@ body {
   height: 24px;
 }
 
+
 .header-title {
   flex: 1;
   text-align: center;
@@ -206,10 +222,9 @@ body {
 .input-with-icon {
   display: flex;
   align-items: center;
-  background: #f0f0f0; /* abu muda */
-  border: 1px solid #ff004f; /* pink TikTok */
-  border-radius: 8px;
-  padding: 20px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  padding: 10px 10px;
   gap: 8px;
   width: 100%;       /* full width parent */
   max-width: 100%;   /* hapus batas max-width */
@@ -217,16 +232,44 @@ body {
 }
 
 .input-with-icon input {
-  font-weight: bold;      /* teks yang diketik jadi bold */
-  font-size: 16px;        /* bisa disesuaikan */
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 1.2;   /* samain tinggi teks */
   color: #000;
 }
 
 .input-with-icon input::placeholder {
-  font-size: 18px;
-  font-weight: bold; /* bikin placeholder bold */
-  color: #888; /* optional: ubah warna placeholder */
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 1.2;   /* samain juga */
+  color: #888;
+  opacity: 1;         /* hilangin efek transparan bawaan */
 }
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  caret-color: transparent; /* sembunyiin caret asli */
+}
+
+.input-with-icon::after {
+  content: "";
+  position: absolute;
+  right: 89%; /* posisi sesuai kebutuhan */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 1.2em;
+  background: #ff004f;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 
 .input-with-icon .icon {
   display: flex;
@@ -287,13 +330,13 @@ body {
 .num-keyboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 5px;
 }
 
 .num-keyboard button {
   background: #e0e0e0;
   border: none;
-  border-radius: 6px;
+  border-radius: 2px;
   padding: 15px 0;
   font-size: 20px;
   font-weight: 700;
