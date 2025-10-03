@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const customOption = document.getElementById("customCoinOption");
   const customModal = document.getElementById("customCoinModal");
   const customInput = document.getElementById("customCoinInput");
-  const customPriceText = document.getElementById("customCoinPrice");        // harga kecil (deket input)
-  const customPriceButton = document.getElementById("customCoinPriceButton"); // harga besar (atas tombol Pay)
+  const customPriceText = document.getElementById("customCoinPrice");
+  const customPriceButton = document.getElementById("customCoinPriceButton");
   const customConfirm = document.getElementById("customCoinConfirm");
   const customClose = document.getElementById("customCoinClose");
   const customPayBtn = document.getElementById("CustomPay");
-  const minimumText = document.getElementById("mimum"); // elemen minimum
+  const minimumText = document.getElementById("mimum");
 
   // Numeric Keyboard
   const keyboardButtons = document.querySelectorAll(".num-keyboard button");
@@ -36,20 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
   if (card) card.style.display = "block";
   let selectedMethod = "Credit Card";
 
-  // Harga awal ilangin dulu
   if (customPriceText) customPriceText.style.display = "none";
   if (customPriceButton) customPriceButton.style.display = "none";
 
-  // ===== Disable mobile keyboard dan bold input =====
   if(customInput){
     customInput.setAttribute("readonly", true);
     customInput.style.fontWeight = "bold";
-    customPriceText.textContent = ""; // hilangkan harga awal
+    customPriceText.textContent = "";
   }
 
   // ===== Helper =====
+  const COIN_RATE_USD = 0.009; // 1 koin = $0.009 (bisa disesuaikan)
   function coinToUSD(coins) {
-    return (coins / 300).toFixed(2);
+    return (coins * COIN_RATE_USD).toFixed(2);
   }
 
   function updatePrice() {
@@ -94,13 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
       option.classList.add('active');
 
       if (option.id === "customCoinOption") {
-        customModal.classList.add("show");   // tampil
-        customModal.classList.remove("closing"); // pastiin ga ada closing
+        customModal.classList.add("show");
+        customModal.classList.remove("closing");
         customInput.focus();
         updatePrice();
       } else {
-        const price = option.getAttribute('data-price');
-        if (payBtn) payBtn.textContent = `Pay $${Number(price).toFixed(2)}`;
+        const price = Number(option.getAttribute('data-price'));
+        if (payBtn) payBtn.textContent = `Pay $${price.toFixed(2)}`;
       }
     });
   });
@@ -129,26 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== Custom Modal =====
-  if (customClose) {
-    customClose.addEventListener("click", () => {
-      customModal.classList.add("closing");
-      setTimeout(() => {
-        customModal.classList.remove("show");
-        customModal.classList.remove("closing");
-      }, 400);
-    });
-  }
+  const closeCustomModal = () => {
+    customModal.classList.add("closing");
+    setTimeout(() => {
+      customModal.classList.remove("show");
+      customModal.classList.remove("closing");
+    }, 400);
+  };
 
-  if (modalBackBtn) {
-    modalBackBtn.addEventListener("click", () => {
-      customModal.classList.add("closing");
-      setTimeout(() => {
-        customModal.classList.remove("show");
-        customModal.classList.remove("closing");
-      }, 400);
-    });
-  }
-
+  if (customClose) customClose.addEventListener("click", closeCustomModal);
+  if (modalBackBtn) modalBackBtn.addEventListener("click", closeCustomModal);
   if (customInput) customInput.addEventListener("input", updatePrice);
 
   if (customConfirm) {
@@ -156,11 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const coins = Number(customInput.value);
       if (!isNaN(coins) && coins > 0) {
         localStorage.setItem("customCoins", coins);
-        customModal.classList.add("closing");
-        setTimeout(() => {
-          customModal.classList.remove("show");
-          customModal.classList.remove("closing");
-        }, 400);
+        closeCustomModal();
         coinOptions.forEach(opt => opt.classList.remove('active'));
         customOption.classList.add('active');
         updatePrice();
@@ -247,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (thanksText && coinAmount) {
     const savedUsername = localStorage.getItem("tiktokUsername");
     const savedCoins = localStorage.getItem("customCoins");
-    if (savedUsername) thanksText.textContent = `You topup @${savedUsername} has been processing 24 hours.`;
-    if (savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to the other using virtual gift.`;
+    if (savedUsername) thanksText.textContent = `Your topup @${savedUsername} has been processing 24 hours.`;
+    if (savedCoins) coinAmount.textContent = `Amount topup: ${savedCoins}. While waiting, you can gift to others using virtual gifts.`;
   }
 });
