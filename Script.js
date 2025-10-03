@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const customOption = document.getElementById("customCoinOption");
   const customModal = document.getElementById("customCoinModal");
   const customInput = document.getElementById("customCoinInput");
-  const customPriceText = document.getElementById("customCoinPrice");
-  const customPriceButton = document.getElementById("customCoinPriceButton");
+  const customPriceText = document.getElementById("customCoinPrice");        // harga modal
+  const customPriceButton = document.getElementById("customCoinPriceButton"); // harga dekat tombol Pay
   const customConfirm = document.getElementById("customCoinConfirm");
   const customClose = document.getElementById("customCoinClose");
   const customPayBtn = document.getElementById("CustomPay");
-  const minimumText = document.getElementById("mimum");
+  const minimumText = document.getElementById("mimum"); // elemen minimum
 
   // Numeric Keyboard
   const keyboardButtons = document.querySelectorAll(".num-keyboard button");
@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (card) card.style.display = "block";
   let selectedMethod = "Credit Card";
 
-  if (customPriceText) customPriceText.style.display = "none";
-  if (customPriceButton) customPriceButton.style.display = "none";
+  // Custom Price: harga modal bisa di-hide, tapi harga button tetap stay
+  if (customPriceText) customPriceText.style.display = "none";  
+  if (customPriceButton) customPriceButton.textContent = "$0.00"; // tetap terlihat
 
   if(customInput){
     customInput.setAttribute("readonly", true);
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== Helper =====
-  const COIN_RATE_USD = 0.009; // 1 koin = $0.009 (bisa disesuaikan)
+  const COIN_RATE_USD = 0.009; // 1 koin ≈ $0.009
   function coinToUSD(coins) {
     return (coins * COIN_RATE_USD).toFixed(2);
   }
@@ -54,35 +55,32 @@ document.addEventListener("DOMContentLoaded", () => {
   function updatePrice() {
     let coins = Number(customInput.value);
 
+    // Modal price (dekat input) baru muncul kalau ada angka
     if (isNaN(coins) || coins <= 0) {
       if (customPriceText) {
         customPriceText.style.display = "none";
         customPriceText.textContent = "";
-      }
-      if (customPriceButton) {
-        customPriceButton.style.display = "none";
-        customPriceButton.textContent = "";
       }
       minimumText.style.display = "block";
       if (customPayBtn) {
         customPayBtn.disabled = true;
         customPayBtn.classList.add("disabled");
       }
+      // Harga button tetap stay tapi $0.00
+      if (customPriceButton) customPriceButton.textContent = "$0.00";
     } else {
       const price = `$${coinToUSD(coins)}`;
       if (customPriceText) {
         customPriceText.style.display = "block";
         customPriceText.textContent = price;
       }
-      if (customPriceButton) {
-        customPriceButton.style.display = "block";
-        customPriceButton.textContent = price;
-      }
       minimumText.style.display = "none";
       if (customPayBtn) {
         customPayBtn.disabled = false;
         customPayBtn.classList.remove("disabled");
       }
+      // Harga button update real-time tapi elemen tidak hilang
+      if (customPriceButton) customPriceButton.textContent = price;
     }
   }
 
@@ -100,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         const price = Number(option.getAttribute('data-price'));
         if (payBtn) payBtn.textContent = `Pay $${price.toFixed(2)}`;
+        if (customPriceButton) customPriceButton.textContent = `$${price.toFixed(2)}`; // update harga button juga
       }
     });
   });
